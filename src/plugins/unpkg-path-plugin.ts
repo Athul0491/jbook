@@ -10,9 +10,20 @@ export const unpkgPathPlugin = () => {
         if (args.path === "index.js") {
           return { path: args.path, namespace: "a" };
         }
+
+        if (args.path.includes("./") || args.path.includes("../")) {
+          return {
+            namespace: "a",
+            path: new URL(
+              args.path,
+              "https://unpkg.com" + args.resolveDir + "/"
+            ).href,
+          };
+        }
+
         return {
-          path: `https://unpkg.com/${args.path}`,
           namespace: "a",
+          path: `https://unpkg.com/${args.path}`,
         };
       }); //onresolve is called whenever esbuild is trying to figure out a path to a particular module
 
@@ -23,15 +34,17 @@ export const unpkgPathPlugin = () => {
           return {
             loader: "jsx",
             contents: `
-              const message = require('medium-test-pkg');
+              const message = require('react-dom');
               console.log(message);
             `,
           };
         }
-        const { data } = await axios.get(args.path);
+
+        const { data, request } = await axios.get(args.path);
         return {
           loader: "jsx",
           contents: data,
+          resolveDir: new URL("./", request.responseURL).pathname,
         };
       });
     },
