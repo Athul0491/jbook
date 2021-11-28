@@ -1,8 +1,8 @@
 import * as esbuild from "esbuild-wasm";
 import axios from "axios";
-import localForage from "localforage";
+import localForage, { createInstance } from "localforage";
 
-const fileCache = localForage.createInstance({
+const fileCache = createInstance({
   name: "fileCache",
 });
 
