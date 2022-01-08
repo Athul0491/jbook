@@ -22,7 +22,7 @@ const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
   } else if (cell && cell.type === "text") {
     child = (
       <div>
-        <TextEditor cell={cell} />;
+        <TextEditor cell={cell} />
         <ActionBar id={cell.id} />
       </div>
     );
