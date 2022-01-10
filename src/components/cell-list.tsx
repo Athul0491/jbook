@@ -5,19 +5,15 @@ import { Fragment } from "react";
 
 const CellList: React.FC = () => {
   const cells = useTypedSelector((state) => {
-    if (state.cells) {
-      return state.cells.order.map((id) => {
-        if (state.cells) {
-          return state.cells.data[id];
-        }
-      });
-    }
+    return state.cells.order.map((id) => {
+      return state.cells.data[id];
+    });
   });
   if (cells) {
     const renderedCells = cells.map((cell) => (
-      <Fragment key={cell ? cell.id : null}>
-        <CellListItem key={cell ? cell.id : null} cell={cell ? cell : null} />
-        <AddCell previousCellId={cell ? cell.id : null} />
+      <Fragment key={cell.id}>
+        <CellListItem key={cell.id} cell={cell} />
+        <AddCell previousCellId={cell.id} />
       </Fragment>
     ));
 

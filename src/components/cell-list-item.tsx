@@ -4,13 +4,12 @@ import CodeCell from "./code-cell";
 import TextEditor from "./text-editor";
 import ActionBar from "./action-bar";
 interface CellListItemProps {
-  cell: Cell | null;
+  cell: Cell;
 }
 
 const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
   let child: JSX.Element;
-  child = <div></div>;
-  if (cell && cell.type === "code") {
+  if (cell.type === "code") {
     child = (
       <div>
         <div className="action-bar-wrapper">
@@ -19,7 +18,7 @@ const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
         <CodeCell cell={cell} />
       </div>
     );
-  } else if (cell && cell.type === "text") {
+  } else {
     child = (
       <div>
         <TextEditor cell={cell} />
