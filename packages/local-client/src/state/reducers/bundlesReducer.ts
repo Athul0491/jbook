@@ -1,7 +1,6 @@
 import produce from "immer";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
-import bundle from "../../bundler/index";
 
 interface BundleState {
   [key: string]:
